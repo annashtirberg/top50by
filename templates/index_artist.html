@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The best artists currently</title>
+    <link rel="stylesheet" href="../static/css/css.css">
+</head>
+<body>
+<h1>Search Top 50 best artists currently by countries or Top 50 best tracks by artists</h1>
+    <h2>Searching results: {{artist | title}}</h2>
+    <div id="result">
+        <div class="title">
+            <div>Place</div>
+            <div>Track name</div>
+            <div>Listeners count</div>
+        </div>
+        {% for item in top_list %}
+        <div class="result" data-result-id="1">
+            <div class="number">{{ item['place'] }}</div>
+            <div class="track name">{{ item['track'] }}</div>
+            <div class="listeners count">{{ item['listeners'] }}</div>
+        </div>
+        {% endfor %}
+    </div>
+</body>
+</html>

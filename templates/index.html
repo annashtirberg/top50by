@@ -1,0 +1,33 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>The best artists and track currently</title>
+    <link rel="stylesheet" href="static/css/css.css">
+</head>
+<body>
+<h1>Search Top 50 best artists currently by countries or Top 50 best tracks by artists</h1>
+<h2>Search for artists or tracks</h2>
+<div class="search">
+    <form method="post">
+    <label>Country
+        <input class="search_country" type="text" name="country" placeholder="Enter country" autofocus>
+    </label>
+    <button class="search_button" type="submit" name="submit_button" value="Search country">Search</button>
+    <label>or Artist
+        <input class="search_artist" type="text" name="artist" placeholder="Enter artist" autofocus>
+    </label>
+    <button class="search_button" type="submit" name="submit_button" value="Search artist">Search</button>
+    </form>
+</div>
+    <h2>Searching results:</h2>
+    <div id="result">
+        <div class="title">
+            <div>Place</div>
+            <div>Name</div>
+            <div>Listeners count</div>
+        </div>
+    </div>
+</body>
+</html>

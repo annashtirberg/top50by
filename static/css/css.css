@@ -1,0 +1,104 @@
+
+      * {
+        box-sizing: border-box;
+      }
+
+      html {
+          font: 1.2em/1.4 Arial, Helvetica, sans-serif;
+      }
+
+      body {
+          background-image: url("../img/desktopwallpapers.org.ua-8488.jpg");
+          background-size: 100%;
+          background-attachment: fixed;
+          background-position: right;
+          background-repeat: no-repeat;
+          background-color: darkred;
+          margin-left: 10px;
+      }
+
+      h1 {
+          text-align: center;
+          color: #DCC48E;
+          text-shadow: 1px 1px 2px black, 0 0 1em white;
+          font-size: xx-large;
+      }
+
+      h2 {
+          font-size: large;
+          text-align: left;
+          color: darkred;
+          border-top: 1px solid darkred;
+      }
+
+      .search {
+          display: flex;
+          flex-direction: row;
+          justify-content: left;
+          height: 100%;
+          font-size: medium;
+          margin: 20px;
+          padding: 20px;
+          color: darkred;
+          font-weight: bold;
+      }
+
+      button {
+          background-color: darkred;
+          color: #eeeeee;
+          border-color: rgba(255, 160, 20, 0.5);
+          border-width: 4px;
+          border-radius: 25%;
+          font-size: x-large;
+          margin: 5px;
+          padding: 5px;
+          font-weight: bold;
+      }
+
+      .search_country, .search_artist {
+          margin: 10px;
+          padding: 10px;
+          font-style: italic;
+          text-align: center;
+          color: #fb6542;
+      }
+
+      .result, .title {
+          display: grid;
+          grid-template-columns: 1fr 3fr 2fr;
+          align-items: center;
+          justify-items: center;
+          justify-content: space-around;
+          margin: 3px;
+          padding: 3px;
+          background-color: rgba(230, 131, 39, 0.2);
+      }
+
+      .listeners{
+          color: #DCC48E;
+      }
+
+      .title {
+          color: darkred;
+          font-weight: bold;
+      }
+
+      .message, .back-search {
+          font-size: xx-large;
+          color: #DCC48E;
+          background-color: darkred;
+          text-align: center;
+      }
+
+      a {
+          color: #DCC48E;
+      }
+
+      .link {
+          color: black;
+      }
+
+      .link:visited {
+          color: #DCC48E;
+      }
+
