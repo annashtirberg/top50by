@@ -1,4 +1,4 @@
-from flask import Flask, redirect, render_template, request
+from flask import Flask, redirect, render_template, request, send_from_directory
 import requests
 
 import datetime
@@ -118,6 +118,12 @@ def index_artist(artist):
                 }
             )
         return render_template("index_artist.html", artist=artist, top_list=top_list)
+
+
+@app.route('/favicon.ico')
+def favicon():
+    return send_from_directory(os.path.join(app.root_path, "static"), "favicon.ico",
+                               mimetype="image/vnd.microsoft.icon")
 
 
 if '__main__' == __name__:
