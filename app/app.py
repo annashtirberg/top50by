@@ -1,9 +1,10 @@
-from flask import Flask, redirect, render_template, request, send_from_directory
-import requests
-
 import datetime
 import json
 import os
+
+from flask import Flask, redirect, render_template, request, send_from_directory
+import requests
+
 
 app = Flask(__name__)
 
