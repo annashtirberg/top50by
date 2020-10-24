@@ -23,6 +23,12 @@ TRACK_KEY = "track"
 TRACK_NAME_KEY = "name"
 LISTENERS_TRACK_COUNT_KEY = "listeners"
 
+if not os.path.exists(os.path.join(os.getcwd(), "app", "cache")):
+    os.mkdir(os.path.join(os.getcwd(), "app", "cache"))
+if not os.path.exists(os.path.join(os.getcwd(), "app", "cache", "country")):
+    os.mkdir(os.path.join(os.getcwd(), "app", "cache", "country"))
+if not os.path.exists(os.path.join(os.getcwd(), "app", "cache", "artist")):
+    os.mkdir(os.path.join(os.getcwd(), "app", "cache", "artist"))
 
 @app.route("/")
 def home():
