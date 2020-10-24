@@ -6,7 +6,6 @@ import json
 import os
 
 app = Flask(__name__)
-app.debug = True
 
 API_ROOT = "http://ws.audioscrobbler.com/2.0"
 API_KEY = "4c687ee8070a984365972a134b9bf982"
@@ -22,13 +21,6 @@ TOP_TRACK_KEY = "toptracks"
 TRACK_KEY = "track"
 TRACK_NAME_KEY = "name"
 LISTENERS_TRACK_COUNT_KEY = "listeners"
-
-# if not os.path.exists(os.path.join(os.getcwd(), "app", "cache")):
-#     os.mkdir(os.path.join(os.getcwd(), "app", "cache"))
-# if not os.path.exists(os.path.join(os.getcwd(), "app", "cache", "country")):
-#     os.mkdir(os.path.join(os.getcwd(), "app", "cache", "country"))
-# if not os.path.exists(os.path.join(os.getcwd(), "app", "cache", "artist")):
-#     os.mkdir(os.path.join(os.getcwd(), "app", "cache", "artist"))
 
 
 @app.route("/")
@@ -48,32 +40,30 @@ def search_submit(country=None, artist=None):
         return redirect(f"/artist/{form_artist}")
 
 
-def checking_of_last_changes(path):
+def is_cache_fresh(path):
     time_of_last_change = datetime.datetime.fromtimestamp(os.path.getmtime(path))
     current_time = datetime.datetime.now()
-    limit = datetime.timedelta(hours=24)
-    time_interval = current_time - time_of_last_change
-    if limit < time_interval:
+    freshness_limit = datetime.timedelta(hours=24)
+    passed_time = current_time - time_of_last_change
+    if freshness_limit < passed_time:
         return False
     return True
 
 
 @app.route("/country/<country>")
 def index_country(country):
-    app.logger.info(f"cwd: {os.getcwd()}")
-    app.logger.info(f"dir: {os.listdir()}")
     if country is None:
         return render_template("index.html")
     params_country["country"] = country
-    country_path = os.path.join(os.getcwd(), "app", "cache", "country", f"{country}.json")
-    if os.path.exists(country_path) and checking_of_last_changes(country_path):
-        with open(country_path, "r") as f:
+    country_cache_path = os.path.join(os.getcwd(), "app", "cache", "country", f"{country}.json")
+    if os.path.exists(country_cache_path) and is_cache_fresh(country_cache_path):
+        with open(country_cache_path, "r") as f:
             resp_json = json.loads(f.read())
     else:
         resp = requests.get(API_ROOT, params=params_country)
         resp_json = json.loads(resp.text)
         if TOP_ARTISTS_KEY in resp_json:
-            with open(country_path, "w") as f:
+            with open(country_cache_path, "w") as f:
                 f.write(json.dumps(resp_json))
 
     if TOP_ARTISTS_KEY not in resp_json:
@@ -97,9 +87,9 @@ def index_artist(artist):
     if artist is None:
         return render_template("index.html")
     params_artist["artist"] = artist
-    artist_path = os.path.join(os.getcwd(), "app", "cache", "artist", f"{artist}.json")
-    if os.path.exists(artist_path) and checking_of_last_changes(artist_path):
-        with open(artist_path, "r") as f:
+    artist_cache_path = os.path.join(os.getcwd(), "app", "cache", "artist", f"{artist}.json")
+    if os.path.exists(artist_cache_path) and is_cache_fresh(artist_cache_path):
+        with open(artist_cache_path, "r") as f:
             resp_json = json.loads(f.read())
     else:
         resp = requests.get(API_ROOT, params=params_artist)
@@ -108,7 +98,7 @@ def index_artist(artist):
                 TOP_TRACK_KEY in resp_json and TRACK_KEY in resp_json[TOP_TRACK_KEY]
                 and len(resp_json[TOP_TRACK_KEY][TRACK_KEY]) > 0
         ):
-            with open(artist_path, "w") as f:
+            with open(artist_cache_path, "w") as f:
                 f.write(json.dumps(resp_json))
 
     if (
