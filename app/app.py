@@ -60,6 +60,8 @@ def checking_of_last_changes(path):
 
 @app.route("/country/<country>")
 def index_country(country):
+    app.logger.info(f"cwd: {os.getcwd()}")
+    app.logger.info(f"dir: {os.listdir()}")
     if country is None:
         return render_template("index.html")
     params_country["country"] = country
