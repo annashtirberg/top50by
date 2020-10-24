@@ -55,7 +55,7 @@ def index_country(country):
     if country is None:
         return render_template("index.html")
     params_country["country"] = country
-    country_path = os.path.join(os.getcwd(), "cache", "country", f"{country}.json")
+    country_path = os.path.join(os.getcwd(), "../cache", "country", f"{country}.json")
     if os.path.exists(country_path) and checking_of_last_changes(country_path):
         with open(country_path, "r") as f:
             resp_json = json.loads(f.read())
@@ -87,7 +87,7 @@ def index_artist(artist):
     if artist is None:
         return render_template("index.html")
     params_artist["artist"] = artist
-    artist_path = os.path.join(os.getcwd(), "cache", "artist", f"{artist}.json")
+    artist_path = os.path.join(os.getcwd(), "../cache", "artist", f"{artist}.json")
     if os.path.exists(artist_path) and checking_of_last_changes(artist_path):
         with open(artist_path, "r") as f:
             resp_json = json.loads(f.read())
