@@ -14,7 +14,7 @@
           background-position: right;
           background-repeat: no-repeat;
           background-color: darkred;
-          margin-left: 10px;
+          margin-left: 1%;
       }
 
       h1 {
@@ -102,3 +102,8 @@
           color: #DCC48E;
       }
 
+    @media (max-width: 450px) {
+    h2, title {
+        color: black;
+    }
+}
