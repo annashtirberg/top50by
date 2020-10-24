@@ -25,7 +25,7 @@ LISTENERS_TRACK_COUNT_KEY = "listeners"
 
 @app.route("/")
 def home():
-    return render_template("index.html")
+    return render_template("index.j2")
 
 
 @app.route("/", methods=["POST"])
@@ -53,7 +53,7 @@ def is_cache_fresh(path):
 @app.route("/country/<country>")
 def index_country(country):
     if country is None:
-        return render_template("index.html")
+        return render_template("index.j2")
     params_country["country"] = country
     country_cache_path = os.path.join(app.root_path, "cache", "country", f"{country}.json")
     if os.path.exists(country_cache_path) and is_cache_fresh(country_cache_path):
@@ -68,7 +68,7 @@ def index_country(country):
 
     if TOP_ARTISTS_KEY not in resp_json:
         # no data for this country
-        return render_template("index_message.html", country_error_message=f"No data for country: {country}")
+        return render_template("index_message.j2", country_error_message=f"No data for country: {country}")
     else:
         top_list = []
         for i, artist in enumerate(resp_json[TOP_ARTISTS_KEY][ARTIST_KEY]):
@@ -79,13 +79,13 @@ def index_country(country):
                     "listeners": f"{artist[LISTENERS_COUNT_KEY]}"
                 }
             )
-        return render_template("index_country.html", country=country, top_list=top_list)
+        return render_template("index_country.j2", country=country, top_list=top_list)
 
 
 @app.route("/artist/<artist>")
 def index_artist(artist):
     if artist is None:
-        return render_template("index.html")
+        return render_template("index.j2")
     params_artist["artist"] = artist
     artist_cache_path = os.path.join(app.root_path, "cache", "artist", f"{artist}.json")
     if os.path.exists(artist_cache_path) and is_cache_fresh(artist_cache_path):
@@ -106,7 +106,7 @@ def index_artist(artist):
             or not 0 < len(resp_json[TOP_TRACK_KEY][TRACK_KEY])
     ):
         # no such artist
-        return render_template("index_message.html", artist_error_message=f"No data for artist: {artist}")
+        return render_template("index_message.j2", artist_error_message=f"No data for artist: {artist}")
     else:
         top_list = []
         for i, track in enumerate(resp_json[TOP_TRACK_KEY][TRACK_KEY]):
@@ -117,7 +117,7 @@ def index_artist(artist):
                     "listeners": f"{track[LISTENERS_TRACK_COUNT_KEY]}"
                 }
             )
-        return render_template("index_artist.html", artist=artist, top_list=top_list)
+        return render_template("index_artist.j2", artist=artist, top_list=top_list)
 
 
 @app.route('/favicon.ico')
